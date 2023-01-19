@@ -1,0 +1,9 @@
+move_field(dc_coverage,zdb_coverage)
+join_field(zdb_baseSignature, ';')
+join_field(zdb_site, ';')
+join_field(zdb_siteSignature, ';')
+join_field(zdb_gap, ';')
+join_field(zdb_ill, ';')
+if any_match(zdb_coverage,'-(\s+)?$')
+    add_field(zdb_current,'x')
+end
