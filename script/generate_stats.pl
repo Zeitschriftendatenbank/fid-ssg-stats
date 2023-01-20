@@ -107,7 +107,7 @@ sub generate_markdown_table {
         my $description = get_description($type, $file_name);
         $description->{Download}
             = '[![Download](./vendor/icons/download.svg)]('
-            . set_root_path($file_path) . ')';
+            . set_download_path($file_path) . ')';
         push(@table, $description);
     }
     my $exporter = Catmandu::Exporter::Table->new(
@@ -238,6 +238,13 @@ sub set_root_path {
     my $path      = shift;
     my $canonpath = $path->canonpath;
     $canonpath =~ s/^\.\./\./;
+    return $canonpath;
+}
+
+sub set_download_path {
+    my $path      = shift;
+    my $canonpath = $path->canonpath;
+    $canonpath =~ s|^\.\.|https://zeitschriftendatenbank.github.io/fid-ssg-stats|;
     return $canonpath;
 }
 
