@@ -31,20 +31,20 @@ GetOptions(
 ) or HelpMessage(1);
 
 # get a MongoDB database handle
-my $dbh = _build_dbh();
+# my $dbh = _build_dbh();
 
 # create dir for statistics of that year
-my $dir = create_dir($year);
+# my $dir = create_dir($year);
 
 say "Generate statistis for year $year...";
 
 # create FID statistics
 say 'Generate FID statistics...';
-stats_fid($dbh, $dir);
+# stats_fid($dbh, $dir);
 
 # create SSG statistics
 say 'Generate SSG statistics...';
-stats_ssg($dbh, $dir);
+# stats_ssg($dbh, $dir);
 
 # create docsify site structure
 say 'Generate MD files...';
@@ -82,7 +82,7 @@ sub create_dir {
 
 sub generate_markdown_file {
     my ($year, $table_fid, $table_ssg) = @_;
-    my $markdown = qq{# Statisken $year
+    my $markdown = qq{# Statistiken $year
 
 ## FID
 
