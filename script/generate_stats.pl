@@ -31,20 +31,20 @@ GetOptions(
 ) or HelpMessage(1);
 
 # get a MongoDB database handle
-# my $dbh = _build_dbh();
+my $dbh = _build_dbh();
 
 # create dir for statistics of that year
-# my $dir = create_dir($year);
+my $dir = create_dir($year);
 
 say "Generate statistis for year $year...";
 
 # create FID statistics
 say 'Generate FID statistics...';
-# stats_fid($dbh, $dir);
+stats_fid($dbh, $dir);
 
 # create SSG statistics
 say 'Generate SSG statistics...';
-# stats_ssg($dbh, $dir);
+stats_ssg($dbh, $dir);
 
 # create docsify site structure
 say 'Generate MD files...';
@@ -351,7 +351,7 @@ sub sigel2isil {
     my ($sigel, $delimiter) = @_;
     $sigel = join $delimiter,
         map {my $tmp = 'DE-' . $_; $tmp;}
-        map {(my $tmp = $_) =~ s/\*/%2A/g;  $tmp}
+        map {(my $tmp = $_) =~ s/\*/\./g;  $tmp}
         map {(my $tmp = $_) =~ s/[\.\s]//g; $tmp}
         map {(my $tmp = $_) =~ s/\//-/;     $tmp} split '\|', $sigel;
     return $sigel;
