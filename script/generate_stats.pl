@@ -15,6 +15,7 @@ use Catmandu;
 use Catmandu::Exporter::XLSX;
 use Catmandu::Exporter::Table;
 use DDP;
+use Data::Dumper;
 use Getopt::Long 'HelpMessage';
 use IO::Prompt::Tiny qw(prompt);
 use List::Util       qw(uniq);
@@ -71,7 +72,8 @@ sub create_dir {
             $dir = path("../data/$year")->mkdir;
         }
         else {
-            exit "Won't overwrite existing directory.";
+            say "Won't overwrite existing directory.";
+            exit;
         }
     }
     else {
@@ -121,7 +123,8 @@ sub generate_markdown_table {
 
 sub generate_sidebar {
     my @docs
-        = sort map {'* [' . get_year_from_path($_) . '](' . set_root_path($_) . ')'}
+        = sort
+        map {'* [' . get_year_from_path($_) . '](' . set_root_path($_) . ')'}
         path('../')->children(qr/\d{4}\.md/);
     unshift @docs, '* [Home](./home.md)';
     my $markdown    = join "\n", @docs;
@@ -174,6 +177,20 @@ sub get_columns {
     return $columns;
 }
 
+sub get_current_holdings {
+    my $holding = shift;
+    return 0 unless exists $holding->{zdb_sigel} && exists $holding->{zdb_isil};
+    if (exists $_->{dc_coverage} && $_->{dc_coverage} =~ m/-\s*$/) {
+        return 1;
+    }
+    elsif (exists $_->{zdb_coverage} && $_->{zdb_coverage} =~ m/-\s*$/) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 sub get_fields {
     my $fields
         = 'dc_identifier,dc_format,zdb_codes,dc_title,dc_publisher,rda_placeOfPublication,dc_language,dcterms_spatial,bibo_issn,dc_subject,zdb_ssg,marc_nameOfPart,dcterms_isFormatOf,dcterms_hasVersion,dcterms_hasPart,rda_succeededBy,rda_precededBy,dc_coverage,foaf_isPrimaryTopicOf,zdb_kfr,ssg,current,uniq,all_nr,all';
@@ -191,11 +208,8 @@ sub process_fid_holdings {
     my ($holdings, $isil) = @_;
 
     # only isil of libraries with current holdings
-    my @all = uniq map {$_->{zdb_isil}} grep {
-               exists $_->{zdb_isil}
-            && exists $_->{dc_coverage}
-            && $_->{dc_coverage} =~ m/-\s*$/
-    } @{$holdings};
+    my @all = uniq map {$_->{zdb_isil}}
+        grep {get_current_holdings($_)} @{$holdings};
     my $result = {};
     my @fid    = uniq grep {$_ =~ m/^($isil)$/} @all;
     $result->{ssg}     = scalar @fid > 0 ? join(',', @fid) : '';
@@ -215,11 +229,8 @@ sub process_ssg_holdings {
     my ($holdings, $sigel) = @_;
 
     # only sigel of libraries with current holdings
-    my @all = uniq map {$_->{zdb_sigel}} grep {
-               exists $_->{zdb_sigel}
-            && exists $_->{dc_coverage}
-            && $_->{dc_coverage} =~ m/-\s*$/
-    } @{$holdings};
+    my @all = uniq map {$_->{zdb_sigel}}
+        grep {get_current_holdings($_)} @{$holdings};
     my $result = {};
     my @ssg    = uniq grep {$_ =~ m{^($sigel)$}} @all;
     $result->{ssg}     = scalar @ssg > 0 ? join(',', @ssg) : '';
@@ -244,7 +255,8 @@ sub set_root_path {
 sub set_download_path {
     my $path      = shift;
     my $canonpath = $path->canonpath;
-    $canonpath =~ s|^\.\.|https://zeitschriftendatenbank.github.io/fid-ssg-stats|;
+    $canonpath
+        =~ s|^\.\.|https://zeitschriftendatenbank.github.io/fid-ssg-stats|;
     return $canonpath;
 }
 
@@ -351,7 +363,7 @@ sub sigel2isil {
     my ($sigel, $delimiter) = @_;
     $sigel = join $delimiter,
         map {my $tmp = 'DE-' . $_; $tmp;}
-        map {(my $tmp = $_) =~ s/\*/\./g;  $tmp}
+        map {(my $tmp = $_) =~ s/\*/\./g;   $tmp}
         map {(my $tmp = $_) =~ s/[\.\s]//g; $tmp}
         map {(my $tmp = $_) =~ s/\//-/;     $tmp} split '\|', $sigel;
     return $sigel;
