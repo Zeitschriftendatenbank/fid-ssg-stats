@@ -49,7 +49,7 @@ my @collections = (
 ["FID-MONTAN-DE-105","FID Montan (Bergbau und Hüttenwesen)","Universitätsbibliothek \"Georgius Agricola\" der TU Bergakademie Freiberg","DE-105"],
 ["FID-MOVE-DE-14","FID Mobilitäts- und Verkehrsforschung","SLUB Dresden; TIB Hannover","DE-14"],
 ["FID-MUS-DE-12","FID Musikwissenschaft","BSB München","DE-12"],
-["FID-NAHOST-DE-3","FID Nahost-, Nordafrika- und Islamstudien","ULB Sachsen-Anhalt","DE-3"],
+["FID-NAHOST-DE-3","FID Nahost-, Nordafrika- und Islamstudien","ULB Sachsen-Anhalt","DE-3-1"],
 ["FID-NORD-DE-8","FID Nordeuropa","UB Kiel","DE-8"],
 ["FID-OST-DE-12","FID Ost-, Ostmittel- und Südosteuropa","BSB München","DE-12"],
 ["FID-PHARM-DE-84","FID Pharmazie","UB Braunschweig","DE-84"],
