@@ -29,4 +29,4 @@ git commit -m 'add stats for 2023'
 git push origin master
 ```
 
-Check website hppts://jorol.github.io/fid-ssg-stats
+Check website https://jorol.github.io/fid-ssg-stats
