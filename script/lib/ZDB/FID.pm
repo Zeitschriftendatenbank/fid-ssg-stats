@@ -64,6 +64,7 @@ my @collections = (
 ["FID-THEO-DE-21","FID Theologie","UB Tübingen","DE-21"],
 ["FID-ZENTRALASIEN-DE-7","FID Zentralasien - Autochthone Kulturen und Sprachen","SUB Göttingen","DE-7"],
 ["FID-PHILOS-DE-38","FID Philosopie","USB Köln","DE-38"],
+["FID-PHILOS-DE-12","FID Philosopie","BSB München","DE-12"],
 ["FID-SUEDASIEN-DE-16", "FID Südasien", "UB Heidelberg", "DE-16"],
 );
 
