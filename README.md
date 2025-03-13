@@ -2,11 +2,11 @@
 
 ## Prepare
 
-+ update MongoDB 
++ update MongoDB
   + title and holdings
   + libraries
-+ add new FIDs to `script/lib/ZDB/FID.pm`
-+ update list of ILL libraries in `script/lib/ZDB/ILL.pm`
++ add new FIDs to `script/lib/ZDB/FID.pm` (see https://isil.staatsbibliothek-berlin.de/fid-kennzeichen)
++ update list of ILL libraries in `script/lib/ZDB/ILL.pm` (get list via command `$ zbd list_org_ill`)
 
 ## Create statistics
 
@@ -17,15 +17,14 @@ cd script/
 perl generate_stats.pl
 ```
 
-
 ## Publish statistiscs
 
 Commit changes and push repository
 
 ```
 cd ..
-git add ..
-git commit -m 'add stats for 2023'
+git add .
+git commit -m 'add stats for {YEAR}'
 git push origin master
 ```
 
