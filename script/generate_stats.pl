@@ -193,7 +193,7 @@ sub get_current_holdings {
 
 sub get_fields {
     my $fields
-        = 'dc_identifier,dc_format,zdb_codes,dc_title,dc_publisher,rda_placeOfPublication,dc_language,dcterms_spatial,bibo_issn,dc_subject,zdb_ssg,marc_nameOfPart,dcterms_isFormatOf,dcterms_hasVersion,dcterms_hasPart,rda_succeededBy,rda_precededBy,dc_coverage,foaf_isPrimaryTopicOf,zdb_kfr,ssg,current,uniq,all_nr,all';
+        = 'dc_identifier,dc_format,zdb_codes,dc_title,dc_publisher,rda_placeOfPublication,dc_language,dct_spatial,bibo_issn,dc_subject,zdb_ssg,marc_nameOfPart,dct_isFormatOf,dct_hasVersion,dct_hasPart,rda_succeededBy,rda_precededBy,dc_coverage,foaf_isPrimaryTopicOf,zdb_kfr,ssg,current,uniq,all_nr,all';
     return $fields;
 }
 
